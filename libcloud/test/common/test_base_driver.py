@@ -47,8 +47,7 @@ class BaseDriverTestCase(unittest.TestCase):
         # 3. timeout provided via "_ex_connection_class_kwargs" method
         class DummyDriver2(BaseDriver):
             def _ex_connection_class_kwargs(self):
-                result = {}
-                result['timeout'] = 13
+                result = {'timeout': 13}
                 return result
 
         DummyDriver2.connectionCls = Mock()

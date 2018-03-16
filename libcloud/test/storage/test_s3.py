@@ -337,8 +337,7 @@ class S3MockHttp(MockHttp):
     def _foo_bar_container_foo_test_upload_INVALID_HASH1(self, method, url,
                                                          body, headers):
         body = ''
-        headers = {}
-        headers['etag'] = '"foobar"'
+        headers = {'etag': '"foobar"'}
         # test_upload_object_invalid_hash1
         return (httplib.OK,
                 body,

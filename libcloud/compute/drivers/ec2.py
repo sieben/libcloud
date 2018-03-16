@@ -5988,8 +5988,7 @@ class BaseEC2NodeDriver(NodeDriver):
         """
         attributes = ['max-instances', 'max-elastic-ips',
                       'vpc-max-elastic-ips']
-        params = {}
-        params['Action'] = 'DescribeAccountAttributes'
+        params = {'Action': 'DescribeAccountAttributes'}
 
         for index, attribute in enumerate(attributes):
             params['AttributeName.%s' % (index)] = attribute
@@ -6935,18 +6934,15 @@ class BaseEC2NodeDriver(NodeDriver):
         :rtype:     :class:`EC2SecurityGroup`
         """
 
-        rule = {}
-        rule['protocol'] = findtext(element=element,
-                                    xpath='ipProtocol',
-                                    namespace=NAMESPACE)
-
-        rule['from_port'] = findtext(element=element,
-                                     xpath='fromPort',
-                                     namespace=NAMESPACE)
-
-        rule['to_port'] = findtext(element=element,
-                                   xpath='toPort',
-                                   namespace=NAMESPACE)
+        rule = {'protocol': findtext(element=element,
+                                     xpath='ipProtocol',
+                                     namespace=NAMESPACE),
+                'from_port': findtext(element=element,
+                                      xpath='fromPort',
+                                      namespace=NAMESPACE),
+                'to_port': findtext(element=element,
+                                    xpath='toPort',
+                                    namespace=NAMESPACE)}
 
         # get security groups
         elements = element.findall(fixxpath(
@@ -7221,15 +7217,12 @@ class BaseEC2NodeDriver(NodeDriver):
                disks use this property.
         :rtype:     ``dict``
         """
-        mapping = {}
-
-        mapping['device_name'] = findattr(element=element,
-                                          xpath='deviceName',
-                                          namespace=NAMESPACE)
-
-        mapping['virtual_name'] = findattr(element=element,
-                                           xpath='virtualName',
-                                           namespace=NAMESPACE)
+        mapping = {'device_name': findattr(element=element,
+                                           xpath='deviceName',
+                                           namespace=NAMESPACE),
+                   'virtual_name': findattr(element=element,
+                                            xpath='virtualName',
+                                            namespace=NAMESPACE)}
 
         # If virtual name does not exist then this is an EBS volume.
         # Build the EBS dictionary leveraging the _get_extra_dict method.
@@ -7251,14 +7244,11 @@ class BaseEC2NodeDriver(NodeDriver):
 
         :rtype:     ``dict``
         """
-        mapping = {}
-
-        mapping['device_name'] = findattr(element=element,
-                                          xpath='deviceName',
-                                          namespace=NAMESPACE)
-        mapping['ebs'] = self._get_extra_dict(
-            element,
-            RESOURCE_EXTRA_ATTRIBUTES_MAP['ebs_instance_block_device'])
+        mapping = {'device_name': findattr(element=element,
+                                           xpath='deviceName',
+                                           namespace=NAMESPACE),
+                   'ebs': self._get_extra_dict(element,
+                                               RESOURCE_EXTRA_ATTRIBUTES_MAP['ebs_instance_block_device'])}
 
         return mapping
 

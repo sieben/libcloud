@@ -568,12 +568,11 @@ class AuroraDNSDriver(DNSDriver):
         else:
             name = record['name']
 
-        extra = {}
-        extra['created'] = record['created']
-        extra['modified'] = record['modified']
-        extra['disabled'] = record['disabled']
-        extra['ttl'] = record['ttl']
-        extra['priority'] = record['prio']
+        extra = {'created': record['created'],
+                 'modified': record['modified'],
+                 'disabled': record['disabled'],
+                 'ttl': record['ttl'],
+                 'priority': record['prio']}
 
         return Record(id=record['id'], name=name,
                       type=record['type'],

@@ -452,9 +452,8 @@ class ZerigoDNSDriver(DNSDriver):
         # Note: last_key in this case really is a "last_page".
         # TODO: Update base driver and change last_key to something more
         # generic - e.g. marker
-        params = {}
-        params['per_page'] = ITEMS_PER_PAGE
-        params['page'] = last_key + 1 if last_key else 1
+        params = {'per_page': ITEMS_PER_PAGE,
+                  'page': last_key + 1 if last_key else 1}
 
         if rtype == 'zones':
             path = API_ROOT + 'zones.xml'

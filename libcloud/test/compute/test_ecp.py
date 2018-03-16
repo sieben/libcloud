@@ -87,8 +87,7 @@ class ECPMockHttp(MockHttp):
     fixtures = ComputeFileFixtures('ecp')
 
     def _modules_hosting(self, method, url, body, headers):
-        headers = {}
-        headers['set-cookie'] = 'vcloud-token=testtoken'
+        headers = {'set-cookie': 'vcloud-token=testtoken'}
         body = 'Anything'
         return (httplib.OK, body, headers, httplib.responses[httplib.OK])
 

@@ -98,6 +98,5 @@ class DigitalOceanSpacesStorageDriver(S3StorageDriver):
                              **kwargs)
 
     def _ex_connection_class_kwargs(self):
-        kwargs = {}
-        kwargs['signature_version'] = self.signature_version
+        kwargs = {'signature_version': self.signature_version}
         return kwargs

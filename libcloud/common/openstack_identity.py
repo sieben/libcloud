@@ -772,13 +772,10 @@ class OpenStackIdentity_1_0_Connection(OpenStackIdentityConnection):
         else:
             headers = resp.headers
             # emulate the auth 1.1 URL list
-            self.urls = {}
-            self.urls['cloudServers'] = \
-                [{'publicURL': headers.get('x-server-management-url', None)}]
-            self.urls['cloudFilesCDN'] = \
-                [{'publicURL': headers.get('x-cdn-management-url', None)}]
-            self.urls['cloudFiles'] = \
-                [{'publicURL': headers.get('x-storage-url', None)}]
+            self.urls = {
+                'cloudServers': [{'publicURL': headers.get('x-server-management-url', None)}],
+                'cloudFilesCDN': [{'publicURL': headers.get('x-cdn-management-url', None)}],
+                'cloudFiles': [{'publicURL': headers.get('x-storage-url', None)}]}
             self.auth_token = headers.get('x-auth-token', None)
             self.auth_user_info = None
 

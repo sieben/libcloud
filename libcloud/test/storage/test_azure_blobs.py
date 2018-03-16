@@ -135,13 +135,11 @@ class AzureBlobsMockHttp(MockHttp, unittest.TestCase):
                     self.base_headers,
                     httplib.responses[httplib.BAD_REQUEST])
 
-        headers = {}
-
-        headers['etag'] = '0x8CFB877BB56A6FB'
-        headers['last-modified'] = 'Fri, 04 Jan 2013 09:48:06 GMT'
-        headers['x-ms-lease-status'] = 'unlocked'
-        headers['x-ms-lease-state'] = 'available'
-        headers['x-ms-meta-meta1'] = 'value1'
+        headers = {'etag': '0x8CFB877BB56A6FB',
+                   'last-modified': 'Fri, 04 Jan 2013 09:48:06 GMT',
+                   'x-ms-lease-status': 'unlocked',
+                   'x-ms-lease-state': 'available',
+                   'x-ms-meta-meta1': 'value1'}
 
         return (httplib.OK,
                 body,
@@ -157,16 +155,14 @@ class AzureBlobsMockHttp(MockHttp, unittest.TestCase):
                     self.base_headers,
                     httplib.responses[httplib.BAD_REQUEST])
 
-        headers = {}
-
-        headers['etag'] = '0x8CFB877BB56A6FB'
-        headers['last-modified'] = 'Fri, 04 Jan 2013 09:48:06 GMT'
-        headers['content-length'] = '12345'
-        headers['content-type'] = 'application/zip'
-        headers['x-ms-blob-type'] = 'Block'
-        headers['x-ms-lease-status'] = 'unlocked'
-        headers['x-ms-lease-state'] = 'available'
-        headers['x-ms-meta-rabbits'] = 'monkeys'
+        headers = {'etag': '0x8CFB877BB56A6FB',
+                   'last-modified': 'Fri, 04 Jan 2013 09:48:06 GMT',
+                   'content-length': '12345',
+                   'content-type': 'application/zip',
+                   'x-ms-blob-type': 'Block',
+                   'x-ms-lease-status': 'unlocked',
+                   'x-ms-lease-state': 'available',
+                   'x-ms-meta-rabbits': 'monkeys'}
 
         return (httplib.OK,
                 body,
@@ -251,9 +247,7 @@ class AzureBlobsMockHttp(MockHttp, unittest.TestCase):
         self._assert_content_length_header_is_string(headers=headers)
 
         body = ''
-        headers = {}
-        headers['etag'] = '0x8CFB877BB56A6FB'
-        headers['content-md5'] = 'd4fe4c9829f7ca1cc89db7ad670d2bbd'
+        headers = {'etag': '0x8CFB877BB56A6FB', 'content-md5': 'd4fe4c9829f7ca1cc89db7ad670d2bbd'}
         return (httplib.CREATED,
                 body,
                 headers,
@@ -265,8 +259,7 @@ class AzureBlobsMockHttp(MockHttp, unittest.TestCase):
         self._assert_content_length_header_is_string(headers=headers)
 
         body = ''
-        headers = {}
-        headers['etag'] = '0x8CFB877BB56A6FB'
+        headers = {'etag': '0x8CFB877BB56A6FB'}
         return (httplib.CREATED,
                 body,
                 headers,
@@ -276,8 +269,7 @@ class AzureBlobsMockHttp(MockHttp, unittest.TestCase):
                                                 body, headers):
         # test_upload_object_success
         body = ''
-        headers = {}
-        headers['etag'] = '0x8CFB877BB56A6FB'
+        headers = {'etag': '0x8CFB877BB56A6FB'}
         return (httplib.CREATED,
                 body,
                 headers,
@@ -289,9 +281,8 @@ class AzureBlobsMockHttp(MockHttp, unittest.TestCase):
         self._assert_content_length_header_is_string(headers=headers)
 
         body = ''
-        headers = {}
-        headers['etag'] = '0x8CFB877BB56A6FB'
-        headers['content-md5'] = 'd4fe4c9829f7ca1cc89db7ad670d2bbd'
+        headers = {'etag': '0x8CFB877BB56A6FB',
+                   'content-md5': 'd4fe4c9829f7ca1cc89db7ad670d2bbd'}
 
         return (httplib.CREATED,
                 body,
@@ -331,9 +322,8 @@ class AzureBlobsMockHttp(MockHttp, unittest.TestCase):
         self._assert_content_length_header_is_string(headers=headers)
 
         body = ''
-        headers = {}
-        headers['etag'] = '0x8CFB877BB56A6FB'
-        headers['content-md5'] = 'd4fe4c9829f7ca1cc89db7ad670d2bbd'
+        headers = {'etag': '0x8CFB877BB56A6FB',
+                   'content-md5': 'd4fe4c9829f7ca1cc89db7ad670d2bbd'}
 
         return (httplib.CREATED,
                 body,

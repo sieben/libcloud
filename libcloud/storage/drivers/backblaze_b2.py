@@ -272,9 +272,7 @@ class BackblazeB2StorageDriver(StorageDriver):
                                           object_name=object_name)
 
     def create_container(self, container_name, ex_type='allPrivate'):
-        data = {}
-        data['bucketName'] = container_name
-        data['bucketType'] = ex_type
+        data = {'bucketName': container_name, 'bucketType': ex_type}
         # pylint: disable=unexpected-keyword-arg
         resp = self.connection.request(action='b2_create_bucket',
                                        data=data, method='POST',
@@ -283,8 +281,7 @@ class BackblazeB2StorageDriver(StorageDriver):
         return container
 
     def delete_container(self, container):
-        data = {}
-        data['bucketId'] = container.extra['id']
+        data = {'bucketId': container.extra['id']}
         # pylint: disable=unexpected-keyword-arg
         resp = self.connection.request(action='b2_delete_bucket',
                                        data=data, method='POST',
@@ -367,16 +364,13 @@ class BackblazeB2StorageDriver(StorageDriver):
         return obj
 
     def delete_object(self, obj):
-        data = {}
-        data['fileName'] = obj.name
-        data['fileId'] = obj.extra['fileId']
+        data = {'fileName': obj.name, 'fileId': obj.extra['fileId']}
         resp = self.connection.request(action='b2_delete_file_version',
                                        data=data, method='POST')
         return resp.status == httplib.OK
 
     def ex_get_object(self, object_id):
-        params = {}
-        params['fileId'] = object_id
+        params = {'fileId': object_id}
         resp = self.connection.request(action='b2_get_file_info',
                                        method='GET',
                                        params=params)
@@ -384,9 +378,7 @@ class BackblazeB2StorageDriver(StorageDriver):
         return obj
 
     def ex_hide_object(self, container_id, object_name):
-        data = {}
-        data['bucketId'] = container_id
-        data['fileName'] = object_name
+        data = {'bucketId': container_id, 'fileName': object_name}
         resp = self.connection.request(action='b2_hide_file',
                                        data=data, method='POST')
         obj = self._to_object(item=resp.object, container=None)
@@ -394,8 +386,7 @@ class BackblazeB2StorageDriver(StorageDriver):
 
     def ex_list_object_versions(self, container_id, ex_start_file_name=None,
                                 ex_start_file_id=None, ex_max_file_count=None):
-        params = {}
-        params['bucketId'] = container_id
+        params = {'bucketId': container_id}
 
         if ex_start_file_name:
             params['startFileName'] = ex_start_file_name
@@ -419,8 +410,7 @@ class BackblazeB2StorageDriver(StorageDriver):
         :rype: ``dict``
         """
         # TODO: This is static (AFAIK) so it could be cached
-        params = {}
-        params['bucketId'] = container_id
+        params = {'bucketId': container_id}
         response = self.connection.request(action='b2_get_upload_url',
                                            method='GET',
                                            params=params)
@@ -445,9 +435,7 @@ class BackblazeB2StorageDriver(StorageDriver):
         return result
 
     def _to_container(self, item):
-        extra = {}
-        extra['id'] = item['bucketId']
-        extra['bucketType'] = item['bucketType']
+        extra = {'id': item['bucketId'], 'bucketType': item['bucketType']}
         container = Container(name=item['bucketName'], extra=extra,
                               driver=self)
         return container
@@ -461,9 +449,7 @@ class BackblazeB2StorageDriver(StorageDriver):
         return result
 
     def _to_object(self, item, container=None):
-        extra = {}
-        extra['fileId'] = item['fileId']
-        extra['uploadTimestamp'] = item.get('uploadTimestamp', None)
+        extra = {'fileId': item['fileId'], 'uploadTimestamp': item.get('uploadTimestamp', None)}
         size = item.get('size', item.get('contentLength', None))
         hash = item.get('contentSha1', None)
         meta_data = item.get('fileInfo', {})

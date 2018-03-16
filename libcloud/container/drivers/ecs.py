@@ -93,8 +93,7 @@ class ElasticContainerDriver(ContainerDriver):
         :return: a list of images
         :rtype: ``list`` of :class:`libcloud.container.base.ContainerImage`
         """
-        request = {}
-        request['repositoryName'] = ex_repository_name
+        request = {'repositoryName': ex_repository_name}
         list_response = self.ecr_connection.request(
             ROOT,
             method='POST',

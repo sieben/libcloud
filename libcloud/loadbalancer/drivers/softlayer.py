@@ -384,13 +384,12 @@ class SoftlayerLBDriver(Driver):
     def _to_balancer(self, lb):
         ipaddress = lb['ipAddress']['ipAddress']
 
-        extra = {}
-        extra['connection_limit'] = lb['connectionLimit']
-        extra['ssl_active'] = lb['sslActiveFlag']
-        extra['ssl_enabled'] = lb['sslEnabledFlag']
-        extra['ha'] = lb['highAvailabilityFlag']
-        extra['datacenter'] = \
-            lb['loadBalancerHardware'][0]['datacenter']['name']
+        extra = {'connection_limit': lb['connectionLimit'],
+                 'ssl_active': lb['sslActiveFlag'],
+                 'ssl_enabled': lb['sslEnabledFlag'],
+                 'ha': lb['highAvailabilityFlag'],
+                 'datacenter': lb['loadBalancerHardware'][0]['datacenter']['name']
+                 }
 
         # In Softlayer, there could be multiple group of members (aka service
         # groups), so retrieve the first one
@@ -428,8 +427,6 @@ class SoftlayerLBDriver(Driver):
         ip = srv['ipAddress']['ipAddress']
         port = srv['port']
 
-        extra = {}
-        extra['status'] = srv['status']
-        extra['enabled'] = srv['enabled']
+        extra = {'status': srv['status'], 'enabled': srv['enabled']}
         return Member(id=svc_id, ip=ip, port=port, balancer=balancer,
                       extra=extra)

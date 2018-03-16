@@ -141,10 +141,9 @@ class LocalStorageDriver(StorageDriver):
             raise ContainerDoesNotExistError(value=None, driver=self,
                                              container_name=container_name)
 
-        extra = {}
-        extra['creation_time'] = stat.st_ctime
-        extra['access_time'] = stat.st_atime
-        extra['modify_time'] = stat.st_mtime
+        extra = {'creation_time': stat.st_ctime,
+                 'access_time': stat.st_atime,
+                 'modify_time': stat.st_mtime}
 
         return Container(name=container_name, extra=extra, driver=self)
 
@@ -180,10 +179,9 @@ class LocalStorageDriver(StorageDriver):
         data_hash.update(u(stat.st_mtime).encode('ascii'))
         data_hash = data_hash.hexdigest()
 
-        extra = {}
-        extra['creation_time'] = stat.st_ctime
-        extra['access_time'] = stat.st_atime
-        extra['modify_time'] = stat.st_mtime
+        extra = {'creation_time': stat.st_ctime,
+                 'access_time': stat.st_atime,
+                 'modify_time': stat.st_mtime}
 
         return Object(name=object_name, size=stat.st_size, extra=extra,
                       driver=self, container=container, hash=data_hash,

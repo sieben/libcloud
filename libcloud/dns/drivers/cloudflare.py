@@ -170,7 +170,9 @@ class CloudFlareDNSDriver(DNSDriver):
 
     def create_record(self, name, zone, type, data, extra=None):
         extra = extra or {}
-        params = {'name': name, 'z': zone.domain, 'type': type,
+        params = {'name': name,
+                  'z': zone.domain,
+                  'type': type,
                   'content': data}
 
         params['ttl'] = extra.get('ttl', 120)
@@ -380,10 +382,9 @@ class CloudFlareDNSDriver(DNSDriver):
     def _to_zone(self, item):
         type = 'master'
 
-        extra = {}
-        extra['props'] = item.get('props', {})
-        extra['confirm_code'] = item.get('confirm_code', {})
-        extra['allow'] = item.get('allow', {})
+        extra = {'props': item.get('props', {}),
+                 'confirm_code': item.get('confirm_code', {}),
+                 'allow': item.get('allow', {})}
         for attribute in ZONE_EXTRA_ATTRIBUTES:
             value = item.get(attribute, None)
             extra[attribute] = value
@@ -411,9 +412,7 @@ class CloudFlareDNSDriver(DNSDriver):
         else:
             ttl = None
 
-        extra = {}
-        extra['ttl'] = ttl
-        extra['props'] = item.get('props', {})
+        extra = {'ttl': ttl, 'props': item.get('props', {})}
         for attribute in RECORD_EXTRA_ATTRIBUTES:
             value = item.get(attribute, None)
             extra[attribute] = value

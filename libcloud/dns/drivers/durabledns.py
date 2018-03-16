@@ -540,13 +540,12 @@ class DurableDNSDriver(DNSDriver):
                                             value=e.message)
             raise e
 
-        record_item = {}
-        record_item['id'] = record.id
-        record_item['name'] = name
-        record_item['type'] = type
-        record_item['data'] = data
-        record_item['ttl'] = extra.get('ttl')
-        record_item['aux'] = extra.get('aux')
+        record_item = {'id': record.id,
+                       'name': name,
+                       'type': type,
+                       'data': data,
+                       'ttl': extra.get('ttl'),
+                       'aux': extra.get('aux')}
         record = self._to_record(record_item, zone)
         return record
 

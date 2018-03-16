@@ -1616,11 +1616,10 @@ class ECSDriver(NodeDriver):
     def _to_size(self, element):
         _id = findtext(element, 'InstanceTypeId', namespace=self.namespace)
         ram = float(findtext(element, 'MemorySize', namespace=self.namespace))
-        extra = {}
-        extra['cpu_core_count'] = int(findtext(element, 'CpuCoreCount',
-                                               namespace=self.namespace))
-        extra['instance_type_family'] = findtext(element, 'InstanceTypeFamily',
-                                                 namespace=self.namespace)
+        extra = {'cpu_core_count': int(findtext(element, 'CpuCoreCount',
+                                                namespace=self.namespace)),
+                 'instance_type_family': findtext(element, 'InstanceTypeFamily',
+                                                  namespace=self.namespace)}
         return NodeSize(id=_id, name=_id, ram=ram, disk=None, bandwidth=None,
                         price=None, driver=self, extra=extra)
 

@@ -468,8 +468,7 @@ class GCEBackend(UuidMixin):
         :return: dict formatted as a list entry for Backend Service 'backend'.
         :rtype: ``dict``
         """
-        d = {}
-        d['group'] = self.instance_group.extra['selfLink']
+        d = {'group': self.instance_group.extra['selfLink']}
 
         if self.balancing_mode:
             d['balancingMode'] = self.balancing_mode
@@ -3131,8 +3130,7 @@ class GCENodeDriver(NodeDriver):
         :return:  Health Check object
         :rtype:   :class:`GCEHealthCheck`
         """
-        hc_data = {}
-        hc_data['name'] = name
+        hc_data = {'name': name}
         if host:
             hc_data['host'] = host
         if description:
@@ -3418,10 +3416,9 @@ class GCENodeDriver(NodeDriver):
         :rtype:   :class:`GCENodeImage`
 
         """
-        image_data = {}
-        image_data['name'] = name
-        image_data['description'] = description
-        image_data['family'] = family
+        image_data = {'name': name,
+                      'description': description,
+                      'family': family}
         if isinstance(volume, StorageVolume):
             image_data['sourceDisk'] = volume.extra['selfLink']
             image_data['zone'] = volume.extra['zone'].name
@@ -3560,9 +3557,7 @@ class GCENodeDriver(NodeDriver):
         if not hasattr(zone, 'name'):
             zone = self.ex_get_zone(zone)
         request = "/zones/%s/instanceGroups" % (zone.name)
-        request_data = {}
-        request_data['name'] = name
-        request_data['zone'] = zone.extra['selfLink']
+        request_data = {'name': name, 'zone': zone.extra['selfLink']}
         if description:
             request_data['description'] = description
         if network:
@@ -3664,11 +3659,10 @@ class GCENodeDriver(NodeDriver):
         :return:  Route object
         :rtype:   :class:`GCERoute`
         """
-        route_data = {}
-        route_data['name'] = name
-        route_data['destRange'] = dest_range
-        route_data['priority'] = priority
-        route_data['description'] = description
+        route_data = {'name': name,
+                      'destRange': dest_range,
+                      'priority': priority,
+                      'description': description}
         if isinstance(network, str) and network.startswith('https://'):
             network_uri = network
         elif isinstance(network, str):
@@ -3736,11 +3730,10 @@ class GCENodeDriver(NodeDriver):
         """
 
         request = "/global/sslCertificates" % ()
-        request_data = {}
-        request_data['name'] = name
-        request_data['certificate'] = certificate
-        request_data['privateKey'] = private_key
-        request_data['description'] = description
+        request_data = {'name': name,
+                        'certificate': certificate,
+                        'privateKey': private_key,
+                        'description': description}
 
         self.connection.async_request(request, method='POST',
                                       data=request_data)
@@ -3797,12 +3790,11 @@ class GCENodeDriver(NodeDriver):
                     region_obj = self.ex_get_region(region)
                     region_url = region_obj.extra['selfLink']
 
-        subnet_data = {}
-        subnet_data['name'] = name
-        subnet_data['description'] = description
-        subnet_data['ipCidrRange'] = cidr
-        subnet_data['network'] = network_url
-        subnet_data['region'] = region_url
+        subnet_data = {'name': name,
+                       'description': description,
+                       'ipCidrRange': cidr,
+                       'network': network_url,
+                       'region': region_url}
         region_name = region_url.split('/')[-1]
 
         request = '/regions/%s/subnetworks' % (region_name)
@@ -3834,9 +3826,7 @@ class GCENodeDriver(NodeDriver):
         :return:  Network object
         :rtype:   :class:`GCENetwork`
         """
-        network_data = {}
-        network_data['name'] = name
-        network_data['description'] = description
+        network_data = {'name': name, 'description': description}
         if mode.lower() not in ['auto', 'custom', 'legacy']:
             raise ValueError("Invalid network mode: '%s'. Must be 'auto', "
                              "'custom', or 'legacy'." % mode)
@@ -5101,12 +5091,10 @@ class GCENodeDriver(NodeDriver):
         """
 
         request = "/global/targetHttpsProxies" % ()
-        request_data = {}
-        request_data['name'] = name
-        request_data['description'] = description
-        request_data['sslCertificates'] = [x.extra['selfLink']
-                                           for x in sslcertificates]
-        request_data['urlMap'] = urlmap.extra['selfLink']
+        request_data = {'name': name,
+                        'description': description,
+                        'sslCertificates': [x.extra['selfLink'] for x in sslcertificates],
+                        'urlMap': urlmap.extra['selfLink']}
 
         self.connection.async_request(request, method='POST',
                                       data=request_data)
@@ -5138,8 +5126,7 @@ class GCENodeDriver(NodeDriver):
         :rtype:   :class:`GCETargetInstance`
         """
         zone = zone or self.zone
-        targetinstance_data = {}
-        targetinstance_data['name'] = name
+        targetinstance_data = {'name': name}
         if not hasattr(zone, 'name'):
             zone = self.ex_get_zone(zone)
         targetinstance_data['zone'] = zone.extra['selfLink']
@@ -5323,8 +5310,7 @@ class GCENodeDriver(NodeDriver):
         :return:  A GCE Snapshot object
         :rtype:   :class:`GCESnapshot`
         """
-        snapshot_data = {}
-        snapshot_data['name'] = name
+        snapshot_data = {'name': name}
         request = '/zones/%s/disks/%s/createSnapshot' % (
             volume.extra['zone'].name, volume.name)
         self.connection.async_request(request, method='POST',

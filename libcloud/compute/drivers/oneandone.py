@@ -2114,8 +2114,7 @@ class OneAndOneNodeDriver(NodeDriver):
             server) for server in servers]
 
     def _to_node(self, server):
-        extra = {}
-        extra['datacenter'] = server['datacenter']
+        extra = {'datacenter': server['datacenter']}
 
         if 'description' in server:
             extra['description'] = server['description']

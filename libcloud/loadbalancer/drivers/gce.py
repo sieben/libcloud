@@ -360,10 +360,9 @@ class GCELBDriver(Driver):
         :return:  LoadBalancer object
         :rtype:   :class:`LoadBalancer`
         """
-        extra = {}
-        extra['forwarding_rule'] = forwarding_rule
-        extra['targetpool'] = forwarding_rule.targetpool
-        extra['healthchecks'] = forwarding_rule.targetpool.healthchecks
+        extra = {'forwarding_rule': forwarding_rule,
+                 'targetpool': forwarding_rule.targetpool,
+                 'healthchecks': forwarding_rule.targetpool.healthchecks}
 
         return LoadBalancer(id=forwarding_rule.id,
                             name=forwarding_rule.name, state=None,
