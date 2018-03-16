@@ -14,32 +14,15 @@
 # limitations under the License.
 
 """
-Drivers for working with different providers
+Scaleway Compute Driver
 """
+from libcloud.compute.base import NodeDriver
 
-__all__ = [
-    'abiquo',
-    'brightbox',
-    'bluebox',
-    'dimensiondata',
-    'dummy',
-    'ec2',
-    'ecp',
-    'elasticstack',
-    'elastichosts',
-    'cloudsigma',
-    'gce',
-    'gogrid',
-    'hostvirtual',
-    'ibm_sce',
-    'linode',
-    'opennebula',
-    'rackspace',
-    'rimuhosting',
-    'scaleway',
-    'softlayer',
-    'vcloud',
-    'voxel',
-    'vpsnet',
-    'onapp',
-]
+
+class ScalewayComputeNodeDriver(NodeDriver):
+    """
+    Scaleway compute node driver
+    """
+    api_name = 'scaleway'
+    name = 'scaleway'
+    website = 'https://www.scaleway.com/'

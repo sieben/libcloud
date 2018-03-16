@@ -97,6 +97,7 @@ class Provider(Type):
     :cvar RACKSPACE: Rackspace next-gen OpenStack based Cloud Servers
     :cvar RACKSPACE_FIRST_GEN: Rackspace First Gen Cloud Servers
     :cvar RIMUHOSTING: RimuHosting.com
+    :cvar SCALEWAY: Scaleway Cloud.
     :cvar TERREMARK: Terremark
     :cvar UPCLOUD: UpCloud
     :cvar VCL: VCL driver
@@ -158,6 +159,7 @@ class Provider(Type):
     RACKSPACE_FIRST_GEN = 'rackspace_first_gen'
     RIMUHOSTING = 'rimuhosting'
     RUNABOVE = 'runabove'
+    SCALEWAY = "scaleway"
     SERVERLOVE = 'serverlove'
     SKALICLOUD = 'skalicloud'
     SOFTLAYER = 'softlayer'
@@ -335,9 +337,11 @@ class Architecture(object):
 
     :cvar I386: i386 (32 bt)
     :cvar X86_64: x86_64 (64 bit)
+    :cvar ARM_64: arm_64 (64 bit)
     """
     I386 = 0
     X86_X64 = 1
+    ARM_64 = 2
 
 
 class DeploymentError(LibcloudError):
