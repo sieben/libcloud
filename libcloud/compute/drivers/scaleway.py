@@ -600,6 +600,7 @@ class ScalewayNodeDriver(NodeDriver):
 
     def _get_user_id(self):
         response = self.connection.request('/tokens/%s' % self.secret,
+
                                            region='account')
         return response.object['token']['user_id']
 
